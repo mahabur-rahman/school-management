@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { Course } from './schemas/course.schema';
 
@@ -32,5 +40,11 @@ export class CoursesController {
     course,
   ): Promise<Course> {
     return this.coursesService.updateCourse(id, course);
+  }
+
+  // delete course
+  @Delete(':id')
+  async deleteCourse(@Param('id') id: string): Promise<Course> {
+    return this.coursesService.deleteCourse(id);
   }
 }
