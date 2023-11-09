@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { Course } from './schemas/course.schema';
+import { CreateCourseDto } from './dto/create-course.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -16,7 +17,7 @@ export class CoursesController {
 
   // create course
   @Post()
-  async createCourse(@Body() course): Promise<Course> {
+  async createCourse(@Body() course: CreateCourseDto): Promise<Course> {
     return this.coursesService.createCourse(course);
   }
 
