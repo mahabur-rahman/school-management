@@ -10,6 +10,7 @@ import {
 import { CoursesService } from './courses.service';
 import { Course } from './schemas/course.schema';
 import { CreateCourseDto } from './dto/create-course.dto';
+import { UpdateCourseDto } from './dto/update-course.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -38,7 +39,7 @@ export class CoursesController {
   async updateCourse(
     @Param('id') id: string,
     @Body()
-    course,
+    course: UpdateCourseDto,
   ): Promise<Course> {
     return this.coursesService.updateCourse(id, course);
   }

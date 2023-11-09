@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Course } from './schemas/course.schema';
 import mongoose from 'mongoose';
+import { UpdateCourseDto } from './dto/update-course.dto';
 
 @Injectable()
 export class CoursesService {
@@ -36,7 +37,7 @@ export class CoursesService {
   }
 
   // update course
-  async updateCourse(id: string, course): Promise<Course> {
+  async updateCourse(id: string, course: UpdateCourseDto): Promise<Course> {
     const isValidId = mongoose.isValidObjectId(id);
 
     if (!isValidId) throw new BadRequestException('Please enter correct id!');
