@@ -1,7 +1,7 @@
 import { IsEmpty, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Course } from '../../courses/schemas/course.schema';
 
-export class CreateLesson {
+export class CreateLessonDto {
   @IsString()
   @IsNotEmpty()
   description: string;
@@ -15,5 +15,5 @@ export class CreateLesson {
   seqNo: number;
 
   @IsEmpty({ message: `You can't pass course id!` })
-  courseId: Course;
+  course: Course;
 }

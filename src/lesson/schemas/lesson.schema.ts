@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import { SchemaFactory, Schema, Prop } from '@nestjs/mongoose';
 import { Course } from '../../courses/schemas/course.schema';
-
 @Schema({
   timestamps: true,
 })
@@ -16,7 +15,7 @@ export class Lesson {
   seqNo: number;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Course' })
-  courseId: Course;
+  course: Course;
 }
 
 export const LessonSchema = SchemaFactory.createForClass(Lesson);
