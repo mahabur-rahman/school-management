@@ -22,14 +22,12 @@ export class LessonService {
 
     // Create a new Course
     const newCourse = new this.courseModel();
-    const createdCourse = await newCourse.save();
 
-    // Create a new Lesson and associate it with the created Course
     const newLesson = new this.lessonModel({
       description,
       duration,
       seqNo,
-      course: createdCourse._id, // Associate the lesson with the created course
+      course: newCourse._id,
     });
 
     const createdLesson = await newLesson.save();
