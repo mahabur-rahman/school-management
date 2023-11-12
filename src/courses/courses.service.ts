@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Course } from './schemas/course.schema';
+import { Category, Course } from './schemas/course.schema';
 import mongoose from 'mongoose';
 import { UpdateCourseDto } from './dto/update-course.dto';
 
@@ -18,8 +18,20 @@ export class CoursesService {
   }
 
   // find all courses
-  async findAll(): Promise<Course[]> {
-    const courses = await this.courseModel.find();
+  async findAll(promo?: boolean, category?: Category): Promise<Course[]> {
+    const query: any = {};
+    if (promo !== undefined) {
+      query.promo = promo;
+    }
+    if (category) {
+      query.category = category;
+    }
+
+    if (Object.keys(query).length === 0) {
+      return this.courseModel.find().exec();
+    }
+
+    const courses = await this.courseModel.find(query).exec();
     return courses;
   }
 

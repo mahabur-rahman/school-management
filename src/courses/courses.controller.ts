@@ -6,9 +6,10 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { CoursesService } from './courses.service';
-import { Course } from './schemas/course.schema';
+import { Category, Course } from './schemas/course.schema';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 
@@ -22,10 +23,13 @@ export class CoursesController {
     return this.coursesService.createCourse(course);
   }
 
-  // find all courses
+  // find all courses : localhost:3000/courses?promo=true&category=BEGGINER
   @Get()
-  async findAll(): Promise<Course[]> {
-    return this.coursesService.findAll();
+  async findAll(
+    @Query('promo') promo: boolean,
+    @Query('category') category: Category,
+  ): Promise<Course[]> {
+    return this.coursesService.findAll(promo, category);
   }
 
   // get single course
