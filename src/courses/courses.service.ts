@@ -20,9 +20,11 @@ export class CoursesService {
   // find all courses
   async findAll(promo?: boolean, category?: Category): Promise<Course[]> {
     const query: any = {};
+
     if (promo !== undefined) {
       query.promo = promo;
     }
+
     if (category) {
       query.category = category;
     }

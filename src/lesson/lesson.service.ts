@@ -19,7 +19,6 @@ export class LessonService {
 
   async createLesson(createLessonDto: CreateLessonDto): Promise<Lesson> {
     const { description, duration, seqNo } = createLessonDto;
-
     // Create a new Course
     const newCourse = new this.courseModel();
 
@@ -33,5 +32,32 @@ export class LessonService {
     const createdLesson = await newLesson.save();
 
     return createdLesson;
+  }
+
+  async findAll(
+    description?: string,
+    seqNo?: number,
+    courseId?: string,
+  ): Promise<Lesson[]> {
+    // Build the query object based on provided parameters
+    const query: any = {};
+    if (description) {
+      query.description = description;
+    }
+    if (seqNo) {
+      query.seqNo = seqNo;
+    }
+    if (courseId) {
+      query.course = courseId;
+    }
+
+    // If no filters are provided, return all lessons
+    if (Object.keys(query).length === 0) {
+      return this.lessonModel.find().exec();
+    }
+
+    // Query the database using Mongoose with filters
+    const lessons = await this.lessonModel.find(query).exec();
+    return lessons;
   }
 }
